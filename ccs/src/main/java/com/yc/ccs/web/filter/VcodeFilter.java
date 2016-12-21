@@ -29,7 +29,7 @@ public class VcodeFilter extends AbstractFilter{
 		String srcCode = (String)session.getAttribute("rand"); //取到原始验证码
 		String inputCode = request.getParameter("vcode");
 		if(srcCode.intern() == inputCode.intern()){
-			LogManager.getLogger().debug("过滤器VcodeFilter验证验证码通过.....");
+			LogManager.getLogger().debug("过滤器VcodeFilter验证验证码通过......");
 			chain.doFilter(request, response);
 		}else{
 			LogManager.getLogger().debug("过滤器VcodeFilter验证验证码失败.....");
