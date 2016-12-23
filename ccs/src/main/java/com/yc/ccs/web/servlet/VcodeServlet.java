@@ -71,6 +71,7 @@ public class VcodeServlet extends HttpServlet {
 
 		// 将******存入SESSION
 		request.getSession().setAttribute("rand", sRand);
+		System.out.println("验证码为"+sRand);
 
 		// 图象生效
 		g.dispose();

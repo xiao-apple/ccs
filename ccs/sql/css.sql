@@ -16,6 +16,14 @@ create table t_admin
 	securityCode varchar2(10), --安全代码，即管理员等级
 	partyName varchar2(20) --所属部门的名称
 );
+create table t_admin
+(
+	id Integer primary key,
+	username varchar(20),
+	password varchar(20),
+	securityCode varchar(10), 
+	partyName varchar(20) 
+);
 
 --申请用户的表单
 create table t_applyUser
@@ -28,16 +36,32 @@ create table t_applyUser
 	adminId Integer, --审批人(管理员)
 	remark varchar2(200)
 );
+create table t_applyUser
+(
+	id Integer primary key,
+	applyDate date, 
+	applyLevel varchar(10), 
+	applyState varchar(10), 
+	userId Integer,  
+	adminId Integer, 
+	remark varchar(200)
+);
 
 --账单表
 create table t_bill
 (
 	id Integer primary key,
-	sn varchar2(40), --第XX期，一般用月份来表示，如2007-06
+	sn varchar(40), --第XX期，一般用月份来表示，如2007-06
 	amount Float, --账单总额
 	payoff Integer  --是否付清
 );
-
+create table t_bill
+(
+	id Integer primary key,
+	sn varchar(40), 
+	amount Float, 
+	payoff Integer  
+);
 --信用卡表
 create table t_card
 (
@@ -53,6 +77,20 @@ create table t_card
 	adminId Integer,
 	remark varchar2(200)
 );
+create table t_card
+(
+	id Integer primary key,
+	cardNo varchar(20) unique, 
+	creditLevel varchar(40), 
+	balance Float, 
+	password varchar(20), 
+	cardState varchar(10), 
+	createTime date, 
+	successret Integer,  
+	userId Integer, 
+	adminId Integer,
+	remark varchar(200)
+);
 
 
 --信用等级
@@ -65,6 +103,15 @@ create table t_credit
 	interestRate Float, --超期利率,还款金额的5％，最低10元
 	remark varchar2(200)
 );
+create table t_credit
+(
+	creditLevel varchar(40) primary key, 
+	maxMoney Float, 
+	billDate Integer, 
+	payDate Integer, 
+	interestRate Float, 
+	remark varchar(200)
+);
 
 --日志表
 create table t_log
@@ -75,6 +122,15 @@ create table t_log
 	addr varchar2(20), --操作地点
 	adminName varchar2(20),--操作员姓名
 	remark varchar2(200) 
+);
+create table t_log
+(
+	id Integer primary key,
+	type varchar(20), 
+	operTime date,  
+	addr varchar(20),
+	adminName varchar(20),
+	remark varchar(200) 
 );
 
 --交易表
@@ -88,6 +144,17 @@ create table t_trade
 	cardId Integer,
 	adminId Integer,
 	remark varchar2(200)
+);
+create table t_trade
+(
+	id Integer primary key,
+	type varchar(10), 
+	tradeTime date, 
+	tradeAddress varchar(100), 
+	amount Float, 
+	cardId Integer,
+	adminId Integer,
+	remark varchar(200)
 );
 
 create table t_user
@@ -110,5 +177,24 @@ create table t_user
 	remark varchar2(200)
 );
 
+create table t_user
+(
+	id Integer primary key,
+	name varchar(20), 
+	password varchar(20), 
+	idCardNo varchar(20), 
+	sex varchar(4), 
+	birthday varchar(20), 
+	phone varchar(12), 
+	hasCard varchar(10), 
+	homeAddress varchar(200), 
+	mailbox varchar(200), 
+	company varchar(50), 
+	salary Float, 
+	workingAddress varchar(200), 
+	workingPhone varchar(12), 
+	post varchar(20),  
+	remark varchar(200)
+);
 
-//
+
