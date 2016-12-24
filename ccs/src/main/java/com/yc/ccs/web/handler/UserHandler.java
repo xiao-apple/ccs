@@ -34,8 +34,7 @@ public class UserHandler {
 			helper.setText("<a href='"+hrefString+"'>点此重置密码</a>如果链接不可用,拷贝"+hrefString+" 到地址栏", true);;
 			mailSender.send(message);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LogManager.getLogger().error("发送邮件失败",e);
 		}
 		
 		return "redirect:/page/forgetSuccess.jsp";
