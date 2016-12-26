@@ -14,11 +14,15 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.ccs.service.UserService;
+
 @Controller
 @RequestMapping("/user")
 public class UserHandler {
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	private UserService userService;
 	@RequestMapping("/forget")
 	public String forget(String email,String username,HttpServletRequest request){
 		LogManager.getLogger().debug("请求UserHandler进行forget操作...");
@@ -41,9 +45,11 @@ public class UserHandler {
 	}
 	
 	@RequestMapping("/getpassword")
-	public String getpassword(){
+	public String getpassword(String username,HttpSession session){
 		Random random = new Random();
 		String randPasswordString = random.nextInt(900000)+100000+"";
-		return "redirect:/page/getpassword";
+		session.setAttribute("newPassword", randPasswordString);
+		userService.resetPassword(username, randPasswordString);//admin生成密码 :777971
+		return "redirect:/page/getpassword.jsp";
 	}
 }

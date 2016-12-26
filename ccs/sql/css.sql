@@ -7,14 +7,14 @@ drop table t_log;
 drop table t_trade;
 drop table t_user;
 
- --¹ÜÀíÔ±±í
+ --ç®¡ç†å‘˜è¡¨
 create table t_admin
 (
 	id Integer primary key,
 	username varchar2(20),
 	password varchar2(20),
-	securityCode varchar2(10), --°²È«´úÂë£¬¼´¹ÜÀíÔ±µÈ¼¶
-	partyName varchar2(20) --ËùÊô²¿ÃÅµÄÃû³Æ
+	securityCode varchar2(10), --å®‰å…¨ä»£ç ï¼Œå³ç®¡ç†å‘˜ç­‰çº§
+	partyName varchar2(20) --æ‰€å±éƒ¨é—¨çš„åç§°
 );
 create table t_admin
 (
@@ -25,15 +25,21 @@ create table t_admin
 	partyName varchar(20) 
 );
 
---ÉêÇëÓÃ»§µÄ±íµ¥
+insert into t_admin values (1001,'admin','a','1','è¥é”€éƒ¨');
+select * from t_admin;
+alter table t_admin modify password varchar(40);
+
+
+
+--ç”³è¯·ç”¨æˆ·çš„è¡¨å•
 create table t_applyUser
 (
 	id Integer primary key,
-	applyDate date, --ÉêÇëÈÕÆÚ
-	applyLevel varchar2(10), --ÉêÇëµÈ¼¶
-	applyState varchar2(10), --ÉêÇë×´Ì¬
-	userId Integer,  --ÉêÇëÈË
-	adminId Integer, --ÉóÅúÈË(¹ÜÀíÔ±)
+	applyDate date, --ç”³è¯·æ—¥æœŸ
+	applyLevel varchar2(10), --ç”³è¯·ç­‰çº§
+	applyState varchar2(10), --ç”³è¯·çŠ¶æ€
+	userId Integer,  --ç”³è¯·äºº
+	adminId Integer, --å®¡æ‰¹äºº(ç®¡ç†å‘˜)
 	remark varchar2(200)
 );
 create table t_applyUser
@@ -47,13 +53,13 @@ create table t_applyUser
 	remark varchar(200)
 );
 
---ÕËµ¥±í
+--è´¦å•è¡¨
 create table t_bill
 (
 	id Integer primary key,
-	sn varchar(40), --µÚXXÆÚ£¬Ò»°ãÓÃÔÂ·İÀ´±íÊ¾£¬Èç2007-06
-	amount Float, --ÕËµ¥×Ü¶î
-	payoff Integer  --ÊÇ·ñ¸¶Çå
+	sn varchar(40), --ç¬¬XXæœŸï¼Œä¸€èˆ¬ç”¨æœˆä»½æ¥è¡¨ç¤ºï¼Œå¦‚2007-06
+	amount Float, --è´¦å•æ€»é¢
+	payoff Integer  --æ˜¯å¦ä»˜æ¸…
 );
 create table t_bill
 (
@@ -62,18 +68,18 @@ create table t_bill
 	amount Float, 
 	payoff Integer  
 );
---ĞÅÓÃ¿¨±í
+--ä¿¡ç”¨å¡è¡¨
 create table t_card
 (
 	id Integer primary key,
-	cardNo varchar2(20) unique, --¿¨ºÅ£¬ÓÉ³ÌĞò¸ù¾İÄ³ÖÖ¹æÔò½øĞĞ·ÖÅä
-	creditLevel varchar2(40), --ĞÅÓÃµÈ¼¶
-	balance Float, --Óà¶î£¨Ïû·Ñ×Ü¶î£©£¬Èç¹ûÓà¶îÎª¸ºÊı£¬±íÊ¾¿¨ÄÚÓĞ´æ¿î
-	password varchar2(20), --¿¨ÃÜ
-	cardState varchar2(10), --¿¨×´Ì¬£ºÕı³£¡¢¶³½á¡¢¹ÒÊ§
-	createTime date, --¿ª»§ÈÕÆÚ
-	successret Integer, --³É¹¦»¹Ç®´ÎÊı 
-	userId Integer, --ËùÓĞÕß
+	cardNo varchar2(20) unique, --å¡å·ï¼Œç”±ç¨‹åºæ ¹æ®æŸç§è§„åˆ™è¿›è¡Œåˆ†é…
+	creditLevel varchar2(40), --ä¿¡ç”¨ç­‰çº§
+	balance Float, --ä½™é¢ï¼ˆæ¶ˆè´¹æ€»é¢ï¼‰ï¼Œå¦‚æœä½™é¢ä¸ºè´Ÿæ•°ï¼Œè¡¨ç¤ºå¡å†…æœ‰å­˜æ¬¾
+	password varchar2(20), --å¡å¯†
+	cardState varchar2(10), --å¡çŠ¶æ€ï¼šæ­£å¸¸ã€å†»ç»“ã€æŒ‚å¤±
+	createTime date, --å¼€æˆ·æ—¥æœŸ
+	successret Integer, --æˆåŠŸè¿˜é’±æ¬¡æ•° 
+	userId Integer, --æ‰€æœ‰è€…
 	adminId Integer,
 	remark varchar2(200)
 );
@@ -93,14 +99,14 @@ create table t_card
 );
 
 
---ĞÅÓÃµÈ¼¶
+--ä¿¡ç”¨ç­‰çº§
 create table t_credit
 (
-	creditLevel varchar2(40) primary key, --½ğ¿¨¡¢Òø¿¨¡¢ÓÅÖÊ¿¨¡¢ÆÕÍ¨¿¨
-	maxMoney Float, --×î´óÍ¸Ö§½ğ¶î
-	billDate Integer, --»¹¿îÆÚÏŞ,ÕËµ¥ÈÕ,ÈçÃ¿ÔÂ5ºÅ
-	payDate Integer, --»¹¿îÆÚÏŞ,»¹¿îÈÕ£¬ÈçÃ¿ÔÂ25ºÅ
-	interestRate Float, --³¬ÆÚÀûÂÊ,»¹¿î½ğ¶îµÄ5£¥£¬×îµÍ10Ôª
+	creditLevel varchar2(40) primary key, --é‡‘å¡ã€é“¶å¡ã€ä¼˜è´¨å¡ã€æ™®é€šå¡
+	maxMoney Float, --æœ€å¤§é€æ”¯é‡‘é¢
+	billDate Integer, --è¿˜æ¬¾æœŸé™,è´¦å•æ—¥,å¦‚æ¯æœˆ5å·
+	payDate Integer, --è¿˜æ¬¾æœŸé™,è¿˜æ¬¾æ—¥ï¼Œå¦‚æ¯æœˆ25å·
+	interestRate Float, --è¶…æœŸåˆ©ç‡,è¿˜æ¬¾é‡‘é¢çš„5ï¼…ï¼Œæœ€ä½10å…ƒ
 	remark varchar2(200)
 );
 create table t_credit
@@ -113,14 +119,14 @@ create table t_credit
 	remark varchar(200)
 );
 
---ÈÕÖ¾±í
+--æ—¥å¿—è¡¨
 create table t_log
 (
 	id Integer primary key,
-	type varchar2(20), --ÈÕÖ¾ÀàĞÍ
-	operTime date,  --²Ù×÷Ê±¼ä
-	addr varchar2(20), --²Ù×÷µØµã
-	adminName varchar2(20),--²Ù×÷Ô±ĞÕÃû
+	type varchar2(20), --æ—¥å¿—ç±»å‹
+	operTime date,  --æ“ä½œæ—¶é—´
+	addr varchar2(20), --æ“ä½œåœ°ç‚¹
+	adminName varchar2(20),--æ“ä½œå‘˜å§“å
 	remark varchar2(200) 
 );
 create table t_log
@@ -133,14 +139,14 @@ create table t_log
 	remark varchar(200) 
 );
 
---½»Ò×±í
+--äº¤æ˜“è¡¨
 create table t_trade
 (
 	id Integer primary key,
-	type varchar2(10), --½»Ò×ÀàĞÍ£ºÏû·Ñ¡¢»¹¿î
-	tradeTime date, --½»Ò×Ê±¼ä
-	tradeAddress varchar2(100), --½»Ò×µØµã
-	amount Float, --½»Ò×½ğ¶î
+	type varchar2(10), --äº¤æ˜“ç±»å‹ï¼šæ¶ˆè´¹ã€è¿˜æ¬¾
+	tradeTime date, --äº¤æ˜“æ—¶é—´
+	tradeAddress varchar2(100), --äº¤æ˜“åœ°ç‚¹
+	amount Float, --äº¤æ˜“é‡‘é¢
 	cardId Integer,
 	adminId Integer,
 	remark varchar2(200)
@@ -160,20 +166,20 @@ create table t_trade
 create table t_user
 (
 	id Integer primary key,
-	name varchar2(20), --ÓÃ»§ĞÕÃû
-	password varchar2(20), --ÓÃ»§ÃÜÂë
-	idCardNo varchar2(20), --Éí·İÖ¤ºÅÂë
-	sex varchar2(4), --ĞÔ±ğ
-	birthday varchar2(20), --ÉúÈÕ
-	phone varchar2(12), --ÁªÏµµç»°
-	hasCard varchar2(10), --ÊÇ·ñ³Ö¿¨
-	homeAddress varchar2(200), --¼ÒÍ¥µØÖ·
-	mailbox varchar2(200), --ÓÊÏä
-	company varchar2(50), --¹¤×÷µ¥Î»
-	salary Float, --ÔÂÊÕÈë
-	workingAddress varchar2(200), --¹¤×÷µØÖ·
-	workingPhone varchar2(12), --¹¤×÷µç»°
-	post varchar2(20),  --Ö°Î»
+	name varchar2(20), --ç”¨æˆ·å§“å
+	password varchar2(20), --ç”¨æˆ·å¯†ç 
+	idCardNo varchar2(20), --èº«ä»½è¯å·ç 
+	sex varchar2(4), --æ€§åˆ«
+	birthday varchar2(20), --ç”Ÿæ—¥
+	phone varchar2(12), --è”ç³»ç”µè¯
+	hasCard varchar2(10), --æ˜¯å¦æŒå¡
+	homeAddress varchar2(200), --å®¶åº­åœ°å€
+	mailbox varchar2(200), --é‚®ç®±
+	company varchar2(50), --å·¥ä½œå•ä½
+	salary Float, --æœˆæ”¶å…¥
+	workingAddress varchar2(200), --å·¥ä½œåœ°å€
+	workingPhone varchar2(12), --å·¥ä½œç”µè¯
+	post varchar2(20),  --èŒä½
 	remark varchar2(200)
 );
 

@@ -33,6 +33,12 @@
 	<!-- 配制mybatis与spring整合的SqlSessionFactory的对象 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	    <property name="dataSource" ref="dataSource"/>
+	    <property name="typeAliasesPackage" value="com.yc.ccs.entity"/>
+		<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yc.ccs.mapper"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	<!-- 邮件发送配置 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
