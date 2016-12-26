@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +12,10 @@
 </head>
 <body>
 	<div id="loginDiv">
-		<form id="loginForm" action="admin/login">
-			<p><label>${errorMsg }&nbsp;</label></p><c:remove var="errorMsg" scope="session"/>
-			<p><input name="uname" placeholder="请输入用户名" required="required"/></p>
-			<p><input type="password" name="upwd" placeholder="请输入密码"  required="required"/></p>
+		<form id="loginForm" action="user/login" method="post">
+			<p><label>${errMsg }&nbsp;</label></p><c:remove var="errMsg" scope="request"/>
+			<p><input name="username" placeholder="请输入用户名" required="required"/></p>
+			<p><input type="password" name="password" placeholder="请输入密码"  required="required"/></p>
 			<p><img src="vcode.jpg" title="看不清，换一张"/><input name="vcode" placeholder="请输入验证码" id="vcode"  required="required"/></p>
 			<p><input type="submit" value="登录" id="loginBtn"/>&nbsp;&nbsp;<a href="forgetPassword.jsp">忘记密码</a></p>
 		</form>

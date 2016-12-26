@@ -4,4 +4,6 @@ import com.yc.ccs.entity.User;
 
 public interface UserMapper {
 	public int updateUser(User user);
+
+	public User getUser(User user);
 }

@@ -20,4 +20,10 @@ public class UserServiceImpl implements UserService {
 		userMapper.updateUser(user);
 	}
 
+	@Override
+	public User login(User user) {
+		user.setPassword(Encrypt.md5AndSha(user.getPassword()));
+		return userMapper.getUser(user);
+	}
+
 }
