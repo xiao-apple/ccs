@@ -25,10 +25,10 @@ create table t_admin
 	partyName varchar(20) 
 );
 
-insert into t_admin values (1001,'admin','a','1','营销部');
+587795
 select * from t_admin;
 alter table t_admin modify password varchar(40);
-
+update t_admin set username='admin',password='6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2' where id=1001
 
 
 --申请用户的表单

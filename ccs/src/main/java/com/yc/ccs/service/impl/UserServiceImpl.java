@@ -16,8 +16,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void resetPassword(String username, String randPassword) {
 		// TODO Auto-generated method stub
-		User user = new User(username, Encrypt.md5AndSha(randPassword));
+		User user = new User(username, Encrypt.md5AndSha(randPassword)); //加密;
 		userMapper.updateUser(user);
+	}
+
+	@Override
+	public User login(User user) {
+		user.setPassword(Encrypt.md5AndSha(user.getPassword()));
+		return userMapper.getUser(user);
 	}
 
 }

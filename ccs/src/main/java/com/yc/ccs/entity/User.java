@@ -4,7 +4,7 @@ public class User {
 	private Integer id;
 	private String username;
 	private String password;
-	private Integer securityCode;
+	private String securityCode;
 	private String email;
 
 	public User() {
@@ -40,11 +40,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getSecurityCode() {
+	public String getSecurityCode() {
 		return securityCode;
 	}
 
-	public void setSecurityCode(Integer securityCode) {
+	public void setSecurityCode(String securityCode) {
 		this.securityCode = securityCode;
 	}
 
